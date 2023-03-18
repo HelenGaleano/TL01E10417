@@ -28,7 +28,7 @@ public class ActivityLista extends AppCompatActivity {
     ArrayList<Contactos> lista;
     ArrayList<String>  ArregloContactos;
     EditText id;
-    Button btnConsulta, btnCompartir, btnVerimg, btnEliminar,btnActualizar;
+    Button btnbusc, btnCompartir, btnVerimg, btnEliminar,btnActualizar;
 
 
 
@@ -47,7 +47,7 @@ public class ActivityLista extends AppCompatActivity {
         listacontactos.setAdapter(adp);
 
         // Botones
-        btnConsulta = (Button) findViewById(R.id.btnbuscar);
+        btnbusc = (Button) findViewById(R.id.btnbuscar);
         btnCompartir = (Button) findViewById(R.id.btncompartir);
         btnVerimg = (Button) findViewById(R.id.btnverImagen);
         btnEliminar =  (Button) findViewById(R.id.btneliminar);
@@ -55,7 +55,7 @@ public class ActivityLista extends AppCompatActivity {
         //llamando
         id = (EditText) findViewById(R.id.txtcid);
 
-        btnConsulta.setOnClickListener(new View.OnClickListener() {
+        btnbusc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Buscar();
@@ -85,21 +85,20 @@ public class ActivityLista extends AppCompatActivity {
             }
         });
 
-        listacontactos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+       /* listacontactos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                Intent sendIntent = new Intent();
-                sendIntent.setAction(Intent.ACTION_SEND);
-                sendIntent.putExtra(Intent.EXTRA_TEXT, "This is my text to send.");
-                sendIntent.setType("text/plain");
-                Intent shareIntent = Intent.createChooser(sendIntent, null);
-                startActivity(shareIntent);
-
+               Intent sendIntent = new Intent();
+               sendIntent.setAction(Intent.ACTION_SEND);
+               sendIntent.putExtra(Intent.EXTRA_TEXT, "This is my text to send.");
+               sendIntent.setType("text/plain");
+               Intent shareIntent = Intent.createChooser(sendIntent, null);
+               startActivity(shareIntent);
 
 
             }
-        });
+        });*/
 
         //Selecionarlis();
 
@@ -126,9 +125,7 @@ public class ActivityLista extends AppCompatActivity {
     private void Buscar()
     {
         SQLiteDatabase db = conexion.getWritableDatabase();
-
-        /* Parametros de configuracion de la sentencia SELECT */
-        String [] params = {id.getText().toString()}; // parametro de la busqueda
+        String [] params = {id.getText().toString()};
         String [] fields = {Transacciones.pais,
                 Transacciones.nombre,
                 Transacciones.telefono,
@@ -139,10 +136,10 @@ public class ActivityLista extends AppCompatActivity {
         {
             Cursor cdata = db.query(Transacciones.tablacontacto, fields, wherecond, params, null,null, null );
             cdata.moveToFirst();
-            id.setText(cdata.getString(0));
-           // Toast.makeText(getApplicationContext(), "Consultado con exito",Toast.LENGTH_LONG).show();
-            String mensaje = ArregloContactos.get(0);
-           Toast.makeText(getApplicationContext(),mensaje,Toast.LENGTH_SHORT).show();
+            id.setText(cdata.getString(1));
+            Toast.makeText(getApplicationContext(), "Consultado con exito",Toast.LENGTH_LONG).show();
+            // String mensaje = ArregloContactos.get(0);
+           //Toast.makeText(getApplicationContext(),mensaje,Toast.LENGTH_SHORT).show();
 
 
         }
@@ -152,39 +149,36 @@ public class ActivityLista extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Elemento no encontrado",Toast.LENGTH_LONG).show();
         }
 
-
-
     }
 
     private void Compartir()
     {
-        Intent sendIntent = new Intent();
-        sendIntent.setAction(Intent.ACTION_SEND);
-        sendIntent.putExtra(Intent.EXTRA_TEXT, "This is my text to send.");
-        sendIntent.setType("text/plain");
+        //Intent sendIntent = new Intent();
+       // sendIntent.setAction(Intent.ACTION_SEND);
+       // sendIntent.putExtra(Intent.EXTRA_TEXT, "This is my text to send.");
+       // sendIntent.setType("text/plain");
+       // Intent shareIntent = Intent.createChooser(sendIntent, null);
+       // startActivity(shareIntent);
 
-        Intent shareIntent = Intent.createChooser(sendIntent, null);
-        startActivity(shareIntent);
-
-
+        Intent paginaLista = new Intent(getApplicationContext(),ActivityListCompartir.class);
+        startActivity(paginaLista);
 
 
     }
 
     private void Actualizar()
     {
-        SQLiteDatabase db = conexion.getWritableDatabase();
-        String [] params = {id.getText().toString()};
+        //Conexion a la db
+        //SQLiteDatabase db = conexion.getWritableDatabase();
+        //String [] params = {id.getText().toString()};
+        //ContentValues valores = new ContentValues();
+       // valores.put(Transacciones.id, id.getText().toString());
+       // db.update(Transacciones.tablacontacto, valores, Transacciones.id + "=?", params);
+       // Toast.makeText(getApplicationContext(), "Dato actualizado", Toast.LENGTH_LONG).show();
+       // ClearScreen();
 
-        ContentValues valores = new ContentValues();
-
-        valores.put(Transacciones.id, id.getText().toString());
-
-        db.update(Transacciones.tablacontacto, valores, Transacciones.id + "=?", params);
-        Toast.makeText(getApplicationContext(), "Dato actualizado", Toast.LENGTH_LONG).show();
-        ClearScreen();
-
-
+        Intent paginaLista = new Intent(getApplicationContext(),ActivityVerlista.class);
+        startActivity(paginaLista);
 
     }
 
@@ -195,15 +189,12 @@ public class ActivityLista extends AppCompatActivity {
            // SQLiteConexion conexion = new SQLiteConexion(this, Transacciones.NameDatabase, null,1);
            // SQLiteDatabase db = conexion.getWritableDatabase();
            // ContentValues valores = new ContentValues();
-
            // valores.put(Transacciones.id, id.getText().toString());
-
            // Long resultado =db.delete(Transacciones.tablacontacto,Transacciones.id,valores);
-
-           // Toast.makeText(this,"Eliminado con exito",Toast.LENGTH_SHORT).show();
-
+           // Toast.makeText(this,"Eliminado con exito",Toast.LENGTH_SHORT).show()
            // ClearScreen();
 
+            //Conexion a la base de datos
             SQLiteDatabase db = conexion.getWritableDatabase();
             String [] params = {id.getText().toString()};
             String wherecond = Transacciones.id + "=?";

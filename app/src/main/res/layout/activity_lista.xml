@@ -65,7 +65,7 @@
 
             <Button
                 android:id="@+id/btnverImagen"
-                android:layout_width="196dp"
+                android:layout_width="179dp"
                 android:layout_height="59dp"
                 android:text="Ver Imagen"
                 android:textSize="12sp" />

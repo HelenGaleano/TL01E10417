@@ -92,8 +92,6 @@ public class ActivityPantallaInicial extends AppCompatActivity {
             }
         });
 
-
-
     }
 
 
@@ -128,11 +126,6 @@ public class ActivityPantallaInicial extends AppCompatActivity {
             ex.toString();
 
         }
-
-
-
-
-
 
     }
 
