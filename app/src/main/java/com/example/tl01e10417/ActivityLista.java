@@ -2,13 +2,12 @@ package com.example.tl01e10417;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -49,12 +48,18 @@ public class ActivityLista extends AppCompatActivity {
         // Botones
         btnbusc = (Button) findViewById(R.id.btnbuscar);
         btnCompartir = (Button) findViewById(R.id.btncompartir);
-        btnVerimg = (Button) findViewById(R.id.btnverImagen);
+        btnVerimg = (Button) findViewById(R.id.btnverImag);
         btnEliminar =  (Button) findViewById(R.id.btneliminar);
         btnActualizar =  (Button) findViewById(R.id.btnactualizar);
         //llamando
         id = (EditText) findViewById(R.id.txtcid);
 
+        btnVerimg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                llamando();
+            }
+        });
         btnbusc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -106,6 +111,8 @@ public class ActivityLista extends AppCompatActivity {
 
     }
 
+
+
    /* private void Selecionarlis() {
         listacontactos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -120,7 +127,14 @@ public class ActivityLista extends AppCompatActivity {
     }*/
 
 
+    private void llamando() {
+       Intent paginaLista = new Intent(getApplicationContext(),ActivityllamarContacto.class);
+       startActivity(paginaLista);
 
+       // Intent intent = new Intent(Intent.ACTION_DIAL);
+       // intent.setData(Uri.parse("tel:"));
+        //startActivity(intent);
+    }
 
     private void Buscar()
     {
